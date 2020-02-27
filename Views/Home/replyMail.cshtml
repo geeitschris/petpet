@@ -1,0 +1,61 @@
+@model Mail
+<style>
+    html{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    width:100%;
+    height:100%;
+    }
+    .background{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    width:100%;
+    height:100%;
+    }
+    html
+    .nav justify-content-end{
+        background-color: rgb(187,190,195);
+    }
+    .container{
+        text-align:center;
+        max-width:100%;
+    }
+    h4{
+        border: 1px solid gray;
+        margin-bottom:30px;
+    }
+    table{
+        text-align: none;
+    }
+</style>
+
+<div class="background">
+    <div class="container">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/mailbox">Mail</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Release Pet</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-danger" asp-action="logout" style="text-decoration:underline">Logout</a>
+            </li>
+        </ul>
+        <form asp-action="sendReply" asp-route-mailId=@ViewBag.RecipientId asp-controller="Home" method="Post" style="width:90%; display:inline-block; margin-top:20px; border:1px solid gray; border-radius:5px; padding: 5px;">
+            <table class="table table-striped">
+                <thead>
+                    <h4 class="form-control form-control-sm" style="font-size:14pt; font-weight:bold;">To: @ViewBag.UserToReply</h4>
+                    <input type="hidden" asp-for="RecipientId" value="@ViewBag.RecipientId">
+                    <input class="form-control form-control-sm" type="text" asp-for="Subject" placeholder="subject" >
+                    <span asp-validation-for="Content"></span>
+                    <textarea class="form-control" rows="5" asp-for="Content" placeholder="Re: @Model.Content"></textarea>
+                </thead>
+            </table>
+        <button style="float:right" class="btn btn-secondary">Send Reply</button>
+        </form>
+    </div>
+</div

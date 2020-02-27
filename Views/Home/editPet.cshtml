@@ -1,0 +1,59 @@
+@model Pet
+
+<style>
+    .background{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    }
+    .nav justify-content-end{
+        background-color: rgb(187,190,195);
+    }
+    .container{
+        text-align:center;
+        max-width:100%;
+    }
+</style>
+<body class="background">
+    <div class="container">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/mailbox">Mail</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/edit">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Release Pet</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-danger" asp-action="logout" style="text-decoration:underline">Logout</a>
+            </li>
+        </ul>
+        <div class="pet" style="display:inline-block;">
+            <p style="font-weight:bold;font-family: Poppins-Bold; margin:15px 0px 15px 0px;">@Model.PetName (#@Model.PetId)</p>
+            <img src=@Model.PetPicture alt="pet image">
+        </div>
+        <form asp-action="submitChanges" asp-controller="Home" method="post" class="contact100-form validate-form">
+            <input type="hidden" asp-for="PetValue" value="@ViewBag.PetId">
+            <div class="wrap-input100">
+                <span asp-validation-for="PetName" class="label-input100">Pet Name</span>
+                <input class="input100" type="text" asp-for="PetName" value=@Model.PetName>
+            </div>
+            <div class="wrap-input100 validate-input" data-validate = "Come on, your pet needs SOME personality.">
+                <span asp-validation-for="PetBio" class="label-input100">Bio for your Pet!</span>
+                <textarea class="input100" asp-for="PetBio" value=@Model.PetBio cols="20"></textarea>
+            </div>
+            <div class="container-contact100-form-btn">
+                <div class="wrap-contact100-form-btn">
+                    <div class="contact100-form-bgbtn"></div>
+                    <button class="contact100-form-btn">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>

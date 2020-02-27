@@ -1,0 +1,72 @@
+@model List<Mail>
+<style>
+    html{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    width:100%;
+    height:100%;
+    }
+    .background{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    width:100%;
+    height:100%;
+    }
+    html
+    .nav justify-content-end{
+        background-color: rgb(187,190,195);
+    }
+    .container{
+        text-align:center;
+        max-width:100%;
+    }
+</style>
+<div class="background">
+    <div class="container">
+        <div class="nav-bar">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/dashboard">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/mailbox">Mail</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">Release Pet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="text-danger" asp-action="logout" style="text-decoration:underline">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <h1>Your Mailbox</h1>
+        <h3 class="text danger">@TempData["mailError"]</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Sender</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Mail mail in @Model){
+                    if(mail.RecipientId == ViewBag.UserId){
+                <tr href="mail/show/{@mail.MailId}">
+                <th scope="row"><a asp-action="showMail" asp-route-mailId=@mail.MailId>@mail.CreatedAt.ToString("MM/dd/yy")</a></th>
+                <td>@mail.AuthorName</td>
+                <td>@mail.Subject</td>
+                    <form asp-action="deleteMail" asp-route-MailId=@mail.MailId asp-controller="Home" method="post">
+                <td>
+                    <button style="padding: 0; border: none; background: none; color:blue">Delete</button>
+                </td>
+                    </form>
+                </tr>
+                }
+                }
+            </tbody>
+        </table>
+        <a href="/mail/new" style="float:right" class="btn btn-secondary">New Mail</a>
+    </div>
+</div>

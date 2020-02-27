@@ -1,0 +1,89 @@
+@model User
+
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<style>
+    .content{
+        margin-top:20px;
+        text-align:center;
+    }
+    .background{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    }
+    .col{
+        margin-top:10px;
+    }
+    .card{
+        text-align:center;
+        display:inline-block;
+    }
+    form{
+        text-align:center;
+    }
+    .card{
+        height: 400px;
+        width: 200px;
+    }
+    .card-body{
+        position: absolute;
+        bottom: 0;
+        text-align:center;
+    }
+    
+</style>
+
+<body class="background" style="width:100%;">
+    <div class="content">
+        <h3 style="font-weight:bold;font-family: Poppins-Bold; margin-top:15px;">Welcome @Model.Name! Choose your new pet!</h3>
+    </div>
+    <form asp-action="petselect" asp-controller="Home" method="post">
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/images/babyfox.png" alt="Baby Fox">
+                    <div class="card-body">
+                        <p class="card-text">Baby Fox</p>
+                        <input class="form-check-input" name="petValue" type="radio" id="inlineRadio1" value="1">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/images/babysquirrel.png" alt="Baby Squirrel">
+                    <div class="card-body">
+                        
+                        <p class="card-text">Baby Squirrel</p>
+                        <input class="form-check-input" type="radio" name="petValue" id="inlineRadio1" value="2">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/images/FireDeer.png" alt="Baby Deer">
+                    <div class="card-body">
+                        
+                        <p class="card-text">Baby Deer</p>
+                        <input class="form-check-input" type="radio" name="petValue" id="inlineRadio1" value="3">
+                    </div>
+                </div>
+            </div>
+            @* <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/images/FireDeer.png" alt="4th Pet">
+                    <div class="card-body" style="text-align:center;">
+                        <div style="display:inline-block;">
+                        <p class="card-text">Baby Penguin</p>
+                        <input class="form-check-input" type="radio" name="petValue" id="inlineRadio1" value="4">
+                        </div>
+                    </div>
+                </div>
+            </div> *@
+        </div>
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn" style="margin-top:20px;">
+                I Choose You!
+            </button>
+        </div>        
+    </form>
+</body>

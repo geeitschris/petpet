@@ -1,0 +1,64 @@
+@model Mail
+<style>
+    html{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    width:100%;
+    height:100%;
+    }
+    .background{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    width:100%;
+    height:100%;
+    }
+    html
+    .nav justify-content-end{
+        background-color: rgb(187,190,195);
+    }
+    .container{
+        text-align:center;
+        max-width:100%;
+    }
+</style>
+<div class="background">
+    <div class="container">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/mailbox">Mail</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">Release Pet</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-danger" asp-action="logout" style="text-decoration:underline">Logout</a>
+            </li>
+        </ul>
+        <h1 style="font-weight:bold;font-family: Poppins-Bold;">New Mail</h1>
+        <form asp-action="createMail" asp-controller="Home" method="post" style="width:90%; display:inline-block; margin-top:20px; border:1px solid gray; border-radius:5px; padding: 5px;">
+            <div class="form-group">
+            <label for="exampleFormControlSelect1" style="font-weight:bold;font-family: Poppins-Bold;">Select a Recipient</label>
+                <select asp-for="RecipientId" class="form-control" id="exampleFormControlSelect1">
+                    @foreach(User user in ViewBag.UserList){
+                        if(user.UserId != @ViewBag.UserLoggedId){
+                            <option value=@user.UserId>@user.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject" style="font-weight:bold;font-family: Poppins-Bold;">Subject</label>
+                <input class="form-control" id="exampleFormControlInput1">
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="Content"></span>
+                <label for="exampleFormControlTextarea1" style="font-weight:bold;font-family: Poppins-Bold;">Message</label>
+                <textarea asp-for="Content" class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+            </div>
+            <button class="btn btn-success">Send</button>
+        </form>
+    </div>
+</div>

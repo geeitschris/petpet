@@ -1,0 +1,88 @@
+@model dashboardModel
+
+<style>
+    .background{
+    background-image: url(https://www.worldofwallpaper.com/media/catalog/product/cache/a13f2d0ee5dc2e18e92742d73c48d042/g/d/gdo021_grandeco_eco_stars_wallpaper_grey_ae1.jpg);
+    background-repeat: repeat;
+    }
+    .nav justify-content-end{
+        background-color: rgb(187,190,195);
+    }
+    .container{
+        text-align:center;
+        max-width:100%;
+    }
+</style>
+<body class="background">
+    <div class="container">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/mailbox">Mail</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/edit">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="releasePet" asp-route-petId=@Model.pet.PetId>Release Pet</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-danger" asp-action="logout" style="text-decoration:underline">Logout</a>
+            </li>
+        </ul>
+        <div class="pet" style="display:inline-block;">
+            <p style="font-weight:bold;font-family: Poppins-Bold; margin:15px 0px 15px 0px;">@Model.pet.PetName (#@Model.pet.PetId)</p>
+            <img src=@Model.pet.PetPicture alt="pet image">
+            <p>Level: @Model.pet.PetLevel | Experience: @Model.pet.PetExperience</p>
+            <p>Fullness: @Model.pet.PetHunger</p>
+            <p>Meals Left: @Model.userLogged.Balance</p>
+            <div style="margin-top:10px; height: 250px; width:90%; display:inline-block; border:1px solid lightgray; background:white;">
+                <p style="font-weight:bold;font-family: Poppins-Bold;">Pet Bio</p>
+                <p>@Model.pet.PetBio</p>
+            </div>
+        </div>
+        <div class="actions" style="margin-top:50px;">
+            <div class="row">
+                <h4 class="text-danger">@TempData["error"]</h4>
+                <div class="col">
+                    <a href="play" class="btn btn-info">Play Hide and Seek</a>
+                </div>
+                <div class="col">
+                    <a href="pet/feed" class="btn btn-info">Feed</a>
+                </div>
+                <div class="col">
+                    <a href="pet/food/get" class="btn btn-info">Get More Food</a>
+                </div>
+            </div>
+        </div>
+        <div class="wall" style="margin-top:50px;">
+            <div>
+                <h2 style="margin-bottom:15px;">@Model.pet.PetName's Wall</h2>
+                <hr style="margin:15px 0px 15px 0px; border:1px solid darkgray;">
+            </div>
+            <div class="content">
+            @foreach(Comment comment in @Model.pet.PetComments.OrderByDescending(p=>p.CreatedAt)){
+                <p style="margin-bottom:10px;">@comment.Author.Name - @comment.CreatedAt.ToString("MMMM dd, yyyy - hh:mm tt") | <a class="text-danger" asp-action="deleteComment" asp-route-commentId="@comment.CommentId">Delete</a></p>
+                <div style="display:inline-block; width:80%; margin-left:15px;">
+                    <p>@comment.Content</p>
+                </div>
+                <hr style="margin:15px 0px 15px 0px; border:1px solid darkgray;" >
+            }
+                <div style="display: inline-block; margin-left: 50px; width:90%;">
+                    <form asp-action="newComment" asp-route-petId=@Model.pet.PetId asp-controller="Home" method="post">
+                        <div class="form-group">
+                            <span asp-validation-for="@Model.comment.Content"></span>
+                            <label asp-for="@Model.comment.Content" style="float:left; font-size:14pt;">New Comment</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" asp-for="@Model.comment.Content"></textarea>
+                        </div>
+                        <div style="text-align:right">
+                        <button class="btn btn-secondary" style="">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
