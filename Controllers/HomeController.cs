@@ -171,7 +171,7 @@ namespace petpet.Controllers {
             }
             dashboardModel dashboard = new dashboardModel ();
             dashboard.userLogged = dbContext.Users.FirstOrDefault (p => p.UserId == HttpContext.Session.GetInt32 ("userId"));
-            dashboard.pet = dbContext.Pets.Include (p => p.PetComments).FirstOrDefault (p => p.UserId == HttpContext.Session.GetInt32 ("userId"));
+            dashboard.pet = dbContext.Pets.Include (p => p.PetComments).ThenInclude (p => p.Author).FirstOrDefault (p => p.UserId == HttpContext.Session.GetInt32 ("userId"));
             return View ("dashboard", dashboard);
         }
 
